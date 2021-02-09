@@ -6,12 +6,26 @@ const HomeScreen =(req, res)=>{
 
   const [name, setName] = useState("");
 
-  const [emai, setEmail] = useState("");
+  const [email, setEmail] = useState("");
 
   const [id, setId] = useState("");
+ 
+
+  
+    const submitHandler = (e) => {
+        e.preventDefault();
+        const user = {
+            name: this.state.name
+          };
+          axios.post(` https://ypjm72q65l.execute-api.ap-south-1.amazonaws.com/dev/aws-insert-record`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      }
     return (
         <> <main className='main'>
-            <Form>
+            <Form onSubmit={submitHandler}>
             <Form.Group controlId="formBasicPassword">
                     <Form.Label>ID</Form.Label>
                     <Form.Control type="text"

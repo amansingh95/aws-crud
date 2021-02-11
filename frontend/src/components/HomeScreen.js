@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button} from 'react-bootstrap';
 import axios from "axios";
 const HomeScreen =(req, res)=>{
@@ -8,20 +8,17 @@ const HomeScreen =(req, res)=>{
 
   const [email, setEmail] = useState("");
 
-  const [id, setId] = useState("");
+  const [Id, setId] = useState("");
  
 
   
-    const submitHandler = (e) => {
+    const submitHandler = async(e) => {
         e.preventDefault();
-        const user = {
-            name: this.state.name
-          };
-          axios.post(` https://ypjm72q65l.execute-api.ap-south-1.amazonaws.com/dev/aws-insert-record`, { user })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+       let id= Number(Id);
+       let data={id, name, email};
+    await axios.post(`https://ypjm72q65l.execute-api.ap-south-1.amazonaws.com/dev/aws-insert-record`, data);
+            console.log("Data Insserted")
+        
       }
     return (
         <> <main className='main'>
@@ -30,7 +27,7 @@ const HomeScreen =(req, res)=>{
                     <Form.Label>ID</Form.Label>
                     <Form.Control type="text"
                         placeholder="Enter Unique ID"
-                        value={id}
+                        value={Id}
                         onChange={(e) => setId(e.target.value)} />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
@@ -57,7 +54,7 @@ const HomeScreen =(req, res)=>{
             </main>
         </>
     )
-    const insert_data=req.body
+   
 }
 
 
